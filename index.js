@@ -66,12 +66,17 @@ app.post("/api/persons", (request, response) => {
   number: body.number,
  };
 
+ const personName = persons.find((person) => person.name === body.name);
+ if (personName) {
+  return response.status(400).json({
+   error: "name must be unique",
+  });
+ }
  if (!body.name || !body.number) {
   return response.status(400).json({
    error: "missing contact detalis",
   });
  }
-
  persons = persons.concat(person);
  response.send(person);
 });
