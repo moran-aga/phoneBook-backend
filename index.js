@@ -20,6 +20,12 @@ let persons = [
  },
 ];
 
+function generateId(min, max) {
+ min = Math.ceil(min);
+ max = Math.floor(max);
+ return Math.floor(Math.random() * (max - min) + min);
+}
+
 let numberOfContacts = persons.length;
 let info = [`phonebook has info for ${numberOfContacts} pepole`, new Date()];
 
@@ -47,9 +53,27 @@ app.get("/info", (request, response) => {
 
 app.delete("/api/persons/:id", (request, response) => {
  const id = Number(request.params.id);
- //  notes = notes.filter((note) => note.id !== id);
  persons = persons.filter((person) => person.id !== id);
  response.status(204).send();
+});
+
+app.post("/api/persons", (request, response) => {
+ const body = request.body;
+
+ let person = {
+  id: generateId(3, 250),
+  name: body.name,
+  number: body.number,
+ };
+
+ if (!body.name || !body.number) {
+  return response.status(400).json({
+   error: "missing contact detalis",
+  });
+ }
+
+ persons = persons.concat(person);
+ response.send(person);
 });
 
 const PORT = 3002;
