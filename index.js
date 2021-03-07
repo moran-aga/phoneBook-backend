@@ -20,12 +20,19 @@ let persons = [
  },
 ];
 
+let numberOfContacts = persons.length;
+let info = [`phonebook has info for ${numberOfContacts} pepole`, new Date()];
+
 app.get("/", (request, response) => {
  response.send("<h1>Hello World!</h1>");
 });
 
 app.get("/api/persons", (request, response) => {
  response.send(persons);
+});
+
+app.get("/info", (request, response) => {
+ response.send(info);
 });
 
 const PORT = 3002;
