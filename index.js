@@ -2,6 +2,10 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
+const cors = require("cors");
+
+app.use(cors());
+
 let persons = [
  {
   id: 1,
@@ -81,6 +85,6 @@ app.post("/api/persons", (request, response) => {
  response.send(person);
 });
 
-const PORT = 3002;
+const PORT = 3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
