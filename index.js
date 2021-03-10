@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
 app.use(express.json());
-const build = require("build");
 
 const cors = require("cors");
 
 app.use(cors());
+// const build = require("build");
 app.use(express.static("build"));
 
 let persons = [
